@@ -31,6 +31,7 @@ Settng up a journal
 -------------------
 
 1. Run
+
 ```shell
 mkdir foobar
 ```
