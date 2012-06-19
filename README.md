@@ -17,11 +17,14 @@ Installation
 ------------
 
 1. Clone the MicroJournal repo
+
 ```shell
 git clone https://github.com/sdqali/microjournal.git
 ```
+
 2. Once you have cloned the repo add the bin directory to your
 $PATH. This can be done by adding
+
 ```shell
 export PATH=$PATH:<microjournal-repo-dir>/bin
 ```
@@ -62,6 +65,7 @@ Adding entries
 --------------
 
 1. Run
+
 ```shell
 microjournal jot
 ```
@@ -74,6 +78,7 @@ Safekeeping
 
 As mentioned above, MicroJournal does not do any magic of its own and
 hence Safekeeping just means a git push. To do this, run
+
 ```shell
 microjournal safekeep
 ```
