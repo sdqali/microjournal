@@ -1,0 +1,45 @@
+#! /usr/bin/env python
+
+import argparse
+import os
+
+parser = argparse.ArgumentParser(description="microjournal")
+parser.add_argument("command", metavar='c',
+                    help="A command for microjournal. One of init, jot or safekeep")
+parser.add_argument("repo", metavar='r', nargs='?',
+                    help="Specify a repo")
+
+args = parser.parse_args()
+
+COMMAND = args.command
+REPO = args.repo
+
+def init_journal():
+    if REPO == None :
+        exit("MicroJournal: You need to provide a repo while initializing\n" +
+             "Use microjournal init <repo-url>")
+    print "Initializing microjournal..."
+    sts = os.system("git init")
+    if sts != 0:
+        exit("\nMicroJournal: Error occurred while initializing Git repo!")
+
+    sts = os.system("git remote add origin " + args.repo)
+    if sts != 0:
+        exit("\nMicroJournal: Error occurred while setting remote for the Git repo!")
+
+
+def safekeep():
+    print "safekeeping"
+
+def jot():
+    print "jot down"
+
+def wrong_command():
+    print "Invalid command " + COMMAND + " given. Use one of init, safekeep or jot"
+
+options = {
+    'init': init_journal,
+    'safekeep': safekeep,
+    'jot': jot
+}
+options.get(COMMAND, wrong_command)()
