@@ -25,6 +25,7 @@ $PATH. This can be done by adding
 ```shell
 export PATH=$PATH:<microjournal-repo-dir>/bin
 ```
+to the end of the init file of your shell (`~/.bashrc`, `~/.zshrc`)
 
 Settng up a journal
 -------------------
