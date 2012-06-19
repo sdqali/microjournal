@@ -34,9 +34,11 @@ Settng up a journal
 ```shell
 mkdir foobar
 ```
+
 ```shell
 cd foobar
 ```
+
 ```shell
 microjournal init git@github.com:sdqali/foobar.git
 ```
