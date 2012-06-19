@@ -37,7 +37,7 @@ cd foobar
 microjournal init git@github.com:sdqali/foobar.git
 ```
 This will create the following directory structure
-```shell
+
 foobar
   |- entries
   |   |- 2012
@@ -45,7 +45,7 @@ foobar
   |           |- 23.txt
   |- config.yml
   |- .git
-```
+
 In addition, it will add `git@github.com:sdqli/foobar.git` as a remote for the Git
 repo created.
 
