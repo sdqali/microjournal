@@ -1,7 +1,7 @@
 MicroJournal
 ============
 
-Microjournal is a simple, lightweight jornal backed by Git. On its own,
+Microjournal is a simple, lightweight journal backed by Git. On its own,
 it does not do much. Instead of doing all the heavy lifting on it's own,
 it uses your default editor to add entries and uses Git to safe keep the
 entries. It does not do any kind of post processing on the entries. The
@@ -25,7 +25,7 @@ export PATH=$PATH:<microjournal-repo-dir>/bin
 ```
 to the end of the init file of your shell (`~/.bashrc`, `~/.zshrc`)
 
-Settng up a journal
+Setting up a journal
 -------------------
 
 1. Run
@@ -70,7 +70,7 @@ entries
 
 </pre>
 This will open the journal entry for today in your default editor (read
-from $EDITOR). MicroJournal will automatically add todays date and
+from $EDITOR). MicroJournal will automatically add today's date and
 current date in to the entry.
 
 Safekeeping
@@ -83,4 +83,4 @@ hence Safekeeping just means a git push. To do this, run
 microjournal safekeep
 ```
 
-This would commit all the entries in the entries/ directroy, and push to the remote.
+This would commit all the entries in the entries/ directory, and push to the remote.
