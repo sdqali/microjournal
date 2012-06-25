@@ -2,6 +2,7 @@
 
 import argparse
 import os
+import time
 
 parser = argparse.ArgumentParser(description="microjournal")
 parser.add_argument("command", metavar='c',
@@ -13,6 +14,7 @@ args = parser.parse_args()
 
 COMMAND = args.command
 REPO = args.repo
+ENTRIES_DIR = "entries"
 
 def init_journal():
     if REPO == None :
@@ -27,19 +29,57 @@ def init_journal():
     if sts != 0:
         exit("\nMicroJournal: Error occurred while setting remote for the Git repo!")
 
+def jot():
+    editor = os.getenv("EDITOR").strip()
+    if editor == "" :
+        exit("MicroJournal: $EDITOR not set. Set it to your favorite editor")
+
+    create_entries_dir()
+    create_dir_for_today()
+    entry = create_entry()
+    sts = os.system((" ").join([editor, entry]))
+    if sts != 0 :
+        print("Error editing the entry")
 
 def safekeep():
     print "safekeeping"
 
-def jot():
-    print "jot down"
-
 def wrong_command():
     print "Invalid command " + COMMAND + " given. Use one of init, safekeep or jot"
 
-options = {
+def todays_entry():
+    ts = time.localtime()
+    sep = os.path.sep
+    entry = str(ts.tm_mday)
+    return entry
+
+def create_entry():
+    entry = os.path.sep.join([todays_dir(), todays_entry()])
+    fh = open(entry, "a")
+    fh.write(time.asctime() + "\n\n")
+    fh.close()
+    return entry
+
+def create_entries_dir():
+    ensure_dir(ENTRIES_DIR)
+
+def create_dir_for_today():
+    ensure_dir(todays_dir())
+
+def todays_dir():
+    ts = time.localtime()
+    sep = os.path.sep
+    return sep.join(map(str, [ENTRIES_DIR, ts.tm_year, ts.tm_mon]))
+
+
+def ensure_dir(dir):
+    if not os.path.exists(dir):
+        os.makedirs(dir)
+
+OPTIONS = {
     'init': init_journal,
     'safekeep': safekeep,
     'jot': jot
 }
-options.get(COMMAND, wrong_command)()
+
+OPTIONS.get(COMMAND, wrong_command)()
