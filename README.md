@@ -1,8 +1,3 @@
-** Note: This is a work in progress. Nothing works as of now. Do check
-   back sometime later. If you are wondering why there is an elaborate
-   (kind of) README and no code, I am trying out Readme driven
-   development **
-
 MicroJournal
 ============
 
@@ -51,10 +46,6 @@ This will create the following directory structure
 <pre>
 foobar
   |- entries
-  |   |- 2012
-  |       |- 06
-  |           |- 23.txt
-  |- config.yml
   |- .git
 </pre>
 
@@ -69,6 +60,15 @@ Adding entries
 ```shell
 microjournal jot
 ```
+This will create the following directory structure
+
+<pre>
+entries
+  |- 2012
+      |- 06
+         |- <today's date>
+
+</pre>
 This will open the journal entry for today in your default editor (read
 from $EDITOR). MicroJournal will automatically add todays date and
 current date in to the entry.
@@ -83,5 +83,4 @@ hence Safekeeping just means a git push. To do this, run
 microjournal safekeep
 ```
 
-This would commit all the entries in the entries/ directroy along with
-with the config.yml file, and push to the remote.
+This would commit all the entries in the entries/ directroy, and push to the remote.

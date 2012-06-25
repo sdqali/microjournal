@@ -22,12 +22,10 @@ def init_journal():
              "Use microjournal init <repo-url>")
     print "Initializing microjournal..."
     sts = os.system("git init")
-    if sts != 0:
-        exit("\nMicroJournal: Error occurred while initializing Git repo!")
+    check_err(sts, "\nMicroJournal: Error occurred while initializing Git repo!")
 
     sts = os.system("git remote add origin " + args.repo)
-    if sts != 0:
-        exit("\nMicroJournal: Error occurred while setting remote for the Git repo!")
+    check_err(sts, "\nMicroJournal: Error occurred while setting remote for the Git repo!")
 
 def jot():
     editor = os.getenv("EDITOR").strip()
@@ -38,18 +36,28 @@ def jot():
     create_dir_for_today()
     entry = create_entry()
     sts = os.system((" ").join([editor, entry]))
-    if sts != 0 :
-        print("Error editing the entry")
+    check_err(sts, "\nMicroJournal: Error editing the entry")
 
 def safekeep():
-    print "safekeeping"
+    sts = os.system("git add entries/")
+    check_err(sts, "\nMicroJournal: Error adding entries/ dir to Git")
+
+    sts = os.system("git ci -am \"" + time.asctime() + "\"")
+
+    sts = os.system("git push origin master")
+    check_err(sts, "\nMicroJournal: Error pushing to remote")
+    print("\nMicroJournal: Pushed all entries to remote")
 
 def wrong_command():
-    print "Invalid command " + COMMAND + " given. Use one of init, safekeep or jot"
+    exit("\nMicroJournal: Invalid command " + COMMAND + " given. Use one of init, safekeep or jot")
+
+def check_err(sts, msg):
+    if sts != 0 :
+        exit(msg)
+
 
 def todays_entry():
     ts = time.localtime()
-    sep = os.path.sep
     entry = str(ts.tm_mday)
     return entry
 
