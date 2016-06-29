@@ -28,9 +28,10 @@ def init_journal():
     check_err(sts, "\nMicroJournal: Error occurred while setting remote for the Git repo!")
 
 def jot():
-    editor = os.getenv("EDITOR").strip()
-    if editor == "" :
+    editor = os.getenv("EDITOR")
+    if editor is None or editor.strip() == "" :
         exit("MicroJournal: $EDITOR not set. Set it to your favorite editor")
+    editor = editor.strip()
 
     create_entries_dir()
     create_dir_for_today()
@@ -42,7 +43,7 @@ def safekeep():
     sts = os.system("git add entries/")
     check_err(sts, "\nMicroJournal: Error adding entries/ dir to Git")
 
-    sts = os.system("git ci -am \"" + time.asctime() + "\"")
+    sts = os.system("git commit -am \"" + time.asctime() + "\"")
 
     sts = os.system("git push origin master")
     check_err(sts, "\nMicroJournal: Error pushing to remote")
